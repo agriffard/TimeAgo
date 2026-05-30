@@ -1,0 +1,45 @@
+@page "/"
+@using System.Globalization
+
+<PageTitle>TimeAgo Sample</PageTitle>
+
+<h1>TimeAgo Sample</h1>
+
+<p>
+    <button class="btn btn-primary me-2" @onclick='() => SetCulture("en")'>EN</button>
+    <button class="btn btn-secondary" @onclick='() => SetCulture("fr")'>FR</button>
+</p>
+
+<p><strong>Current UI culture:</strong> @_currentCulture</p>
+
+@foreach (var sample in _samples)
+{
+    <div class="mb-3">
+        <div><strong>@sample.Label</strong></div>
+        <TimeAgoComponent Date="@sample.Date" Culture="@_currentCulture" CssClass="fw-bold" />
+        <div><small>Raw date: @sample.Date.ToString("F", CultureInfo.InvariantCulture)</small></div>
+    </div>
+}
+
+@code {
+    private string _currentCulture = "en";
+
+    private readonly List<(string Label, DateTime Date)> _samples =
+    [
+        ("Now", DateTime.UtcNow),
+        ("5 minutes ago", DateTime.UtcNow.AddMinutes(-5)),
+        ("2 hours ago", DateTime.UtcNow.AddHours(-2)),
+        ("Yesterday", DateTime.UtcNow.AddDays(-1)),
+        ("Last week", DateTime.UtcNow.AddDays(-7)),
+        ("Last month", DateTime.UtcNow.AddMonths(-1)),
+        ("Last year", DateTime.UtcNow.AddYears(-1))
+    ];
+
+    private void SetCulture(string culture)
+    {
+        var cultureInfo = new CultureInfo(culture);
+        CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+        CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+        _currentCulture = culture;
+    }
+}
