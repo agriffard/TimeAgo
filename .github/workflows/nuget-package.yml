@@ -1,0 +1,74 @@
+name: Publish NuGet package
+
+on:
+  release:
+    types:
+      - published
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Package version override. Defaults to the release tag, then the csproj version.
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    env:
+      NUGET_SOURCE: https://api.nuget.org/v3/index.json
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Resolve package version
+        id: version
+        shell: bash
+        run: |
+          version="${{ github.event.inputs.version }}"
+
+          if [[ -z "$version" && "${{ github.event_name }}" == "release" ]]; then
+            version="${{ github.event.release.tag_name }}"
+          fi
+
+          version="${version#refs/tags/}"
+          version="${version#v}"
+
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - name: Ensure NuGet API key is configured
+        shell: bash
+        run: |
+          if [[ -z "${{ secrets.NUGET_API_KEY }}" ]]; then
+            echo "::error::Missing NUGET_API_KEY repository secret."
+            exit 1
+          fi
+
+      - name: Restore library
+        run: dotnet restore src/TimeAgo/TimeAgo.csproj
+
+      - name: Pack with workflow version
+        if: steps.version.outputs.version != ''
+        run: dotnet pack src/TimeAgo/TimeAgo.csproj -c Release --output artifacts/packages -p:PackageVersion=${{ steps.version.outputs.version }}
+
+      - name: Pack with project version
+        if: steps.version.outputs.version == ''
+        run: dotnet pack src/TimeAgo/TimeAgo.csproj -c Release --output artifacts/packages
+
+      - name: Upload package artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: nuget-package
+          path: artifacts/packages/*.nupkg
+
+      - name: Publish to NuGet
+        shell: bash
+        run: dotnet nuget push artifacts/packages/*.nupkg --api-key "${{ secrets.NUGET_API_KEY }}" --source "$NUGET_SOURCE" --skip-duplicate

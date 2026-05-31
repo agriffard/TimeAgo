@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Restore library
+        run: dotnet restore src/TimeAgo/TimeAgo.csproj
+
+      - name: Restore sample
+        run: dotnet restore samples/TimeAgo.Sample/TimeAgo.Sample.csproj
+
+      - name: Build library
+        run: dotnet build src/TimeAgo/TimeAgo.csproj -c Release --no-restore
+
+      - name: Build sample
+        run: dotnet build samples/TimeAgo.Sample/TimeAgo.Sample.csproj -c Release --no-restore
+
+      - name: Pack library
+        run: dotnet pack src/TimeAgo/TimeAgo.csproj -c Release --no-build --output artifacts/packages
+
+      - name: Upload package artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ci-packages
+          path: artifacts/packages/*.nupkg
