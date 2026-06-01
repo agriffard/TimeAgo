@@ -53,15 +53,15 @@ jobs:
           fi
 
       - name: Restore library
-        run: dotnet restore src/TimeAgo/TimeAgo.csproj
+        run: dotnet restore src/TimeAgochi/TimeAgochi.csproj
 
       - name: Pack with workflow version
         if: steps.version.outputs.version != ''
-        run: dotnet pack src/TimeAgo/TimeAgo.csproj -c Release --output artifacts/packages -p:PackageVersion=${{ steps.version.outputs.version }}
+        run: dotnet pack src/TimeAgochi/TimeAgochi.csproj -c Release --output artifacts/packages -p:PackageVersion=${{ steps.version.outputs.version }}
 
       - name: Pack with project version
         if: steps.version.outputs.version == ''
-        run: dotnet pack src/TimeAgo/TimeAgo.csproj -c Release --output artifacts/packages
+        run: dotnet pack src/TimeAgochi/TimeAgochi.csproj -c Release --output artifacts/packages
 
       - name: Upload package artifact
         uses: actions/upload-artifact@v4

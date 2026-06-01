@@ -1,10 +1,10 @@
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
-using TimeAgo.Resources;
+using TimeAgochi.Resources;
 
-namespace TimeAgo;
+namespace TimeAgochi;
 
-public partial class TimeAgoComponent : IAsyncDisposable
+public partial class TimeAgo : IAsyncDisposable
 {
     [Parameter]
     [EditorRequired]
@@ -70,71 +70,71 @@ public partial class TimeAgoComponent : IAsyncDisposable
 
         if (diff < TimeSpan.Zero)
         {
-            _relativeText = TimeAgoResources.Future(_cultureInfo);
+            _relativeText = TimeAgochiResources.Future(_cultureInfo);
             return;
         }
 
         if (diff < TimeSpan.FromMinutes(1))
         {
-            _relativeText = TimeAgoResources.JustNow(_cultureInfo);
+            _relativeText = TimeAgochiResources.JustNow(_cultureInfo);
             return;
         }
 
         if (diff < TimeSpan.FromMinutes(2))
         {
-            _relativeText = TimeAgoResources.OneMinuteAgo(_cultureInfo);
+            _relativeText = TimeAgochiResources.OneMinuteAgo(_cultureInfo);
             return;
         }
 
         if (diff < TimeSpan.FromHours(1))
         {
-            _relativeText = string.Format(_cultureInfo, TimeAgoResources.MinutesAgo(_cultureInfo), (int)diff.TotalMinutes);
+            _relativeText = string.Format(_cultureInfo, TimeAgochiResources.MinutesAgo(_cultureInfo), (int)diff.TotalMinutes);
             return;
         }
 
         if (diff < TimeSpan.FromHours(2))
         {
-            _relativeText = TimeAgoResources.OneHourAgo(_cultureInfo);
+            _relativeText = TimeAgochiResources.OneHourAgo(_cultureInfo);
             return;
         }
 
         if (diff < TimeSpan.FromHours(24))
         {
-            _relativeText = string.Format(_cultureInfo, TimeAgoResources.HoursAgo(_cultureInfo), (int)diff.TotalHours);
+            _relativeText = string.Format(_cultureInfo, TimeAgochiResources.HoursAgo(_cultureInfo), (int)diff.TotalHours);
             return;
         }
 
         if (diff < TimeSpan.FromDays(2))
         {
-            _relativeText = TimeAgoResources.Yesterday(_cultureInfo);
+            _relativeText = TimeAgochiResources.Yesterday(_cultureInfo);
             return;
         }
 
         if (diff < TimeSpan.FromDays(30))
         {
-            _relativeText = string.Format(_cultureInfo, TimeAgoResources.DaysAgo(_cultureInfo), (int)diff.TotalDays);
+            _relativeText = string.Format(_cultureInfo, TimeAgochiResources.DaysAgo(_cultureInfo), (int)diff.TotalDays);
             return;
         }
 
         if (diff < TimeSpan.FromDays(60))
         {
-            _relativeText = TimeAgoResources.OneMonthAgo(_cultureInfo);
+            _relativeText = TimeAgochiResources.OneMonthAgo(_cultureInfo);
             return;
         }
 
         if (diff < TimeSpan.FromDays(365))
         {
-            _relativeText = string.Format(_cultureInfo, TimeAgoResources.MonthsAgo(_cultureInfo), (int)(diff.TotalDays / 30));
+            _relativeText = string.Format(_cultureInfo, TimeAgochiResources.MonthsAgo(_cultureInfo), (int)(diff.TotalDays / 30));
             return;
         }
 
         if (diff < TimeSpan.FromDays(730))
         {
-            _relativeText = TimeAgoResources.OneYearAgo(_cultureInfo);
+            _relativeText = TimeAgochiResources.OneYearAgo(_cultureInfo);
             return;
         }
 
-        _relativeText = string.Format(_cultureInfo, TimeAgoResources.YearsAgo(_cultureInfo), (int)(diff.TotalDays / 365));
+        _relativeText = string.Format(_cultureInfo, TimeAgochiResources.YearsAgo(_cultureInfo), (int)(diff.TotalDays / 365));
     }
 
     public ValueTask DisposeAsync()

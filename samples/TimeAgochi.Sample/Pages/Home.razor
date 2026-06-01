@@ -1,9 +1,9 @@
 @page "/"
 @using System.Globalization
 
-<PageTitle>TimeAgo Sample</PageTitle>
+<PageTitle>TimeAgochi Sample</PageTitle>
 
-<h1>TimeAgo Sample</h1>
+<h1>TimeAgochi Sample</h1>
 
 <p>
     <button class="btn btn-primary me-2" @onclick='() => SetCulture("en")'>EN</button>
@@ -16,7 +16,7 @@
 {
     <div class="mb-3">
         <div><strong>@sample.Label</strong></div>
-        <TimeAgoComponent Date="@sample.Date" Culture="@_currentCulture" CssClass="fw-bold" />
+        <TimeAgo Date="@sample.Date" Culture="@_currentCulture" CssClass="fw-bold" />
         <div><small>Raw date: @sample.Date.ToString("F", CultureInfo.InvariantCulture)</small></div>
     </div>
 }

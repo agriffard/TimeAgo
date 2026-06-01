@@ -4,12 +4,12 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RazorLangVersion>latest</RazorLangVersion>
-    <PackageId>TimeAgo</PackageId>
+    <PackageId>TimeAgochi</PackageId>
     <Version>1.0.0</Version>
     <Authors>agriffard</Authors>
     <Description>A self-updating Blazor component that displays relative time (e.g. '3 minutes ago').</Description>
-    <PackageTags>blazor;component;timeago;relative-time</PackageTags>
-    <RepositoryUrl>https://github.com/agriffard/TimeAgo</RepositoryUrl>
+    <PackageTags>blazor;component;TimeAgochi;relative-time</PackageTags>
+    <RepositoryUrl>https://github.com/agriffard/TimeAgochi</RepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageReadmeFile>README.md</PackageReadmeFile>
@@ -20,10 +20,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Resources/TimeAgoResources.resx">
+    <EmbeddedResource Update="Resources/TimeAgochiResources.resx">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources/TimeAgoResources.fr.resx">
+    <EmbeddedResource Update="Resources/TimeAgochiResources.fr.resx">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>

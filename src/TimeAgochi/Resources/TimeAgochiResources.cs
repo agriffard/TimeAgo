@@ -1,11 +1,11 @@
 using System.Globalization;
 using System.Resources;
 
-namespace TimeAgo.Resources;
+namespace TimeAgochi.Resources;
 
-internal static class TimeAgoResources
+internal static class TimeAgochiResources
 {
-    private static readonly ResourceManager ResourceManager = new("TimeAgo.Resources.TimeAgoResources", typeof(TimeAgoResources).Assembly);
+    private static readonly ResourceManager ResourceManager = new("TimeAgochi.Resources.TimeAgochiResources", typeof(TimeAgochiResources).Assembly);
     private static readonly CultureInfo FallbackCulture = new("en");
 
     public static string JustNow(CultureInfo culture) => Get("JustNow", culture);

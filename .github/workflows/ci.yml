@@ -24,19 +24,19 @@ jobs:
           dotnet-version: 10.0.x
 
       - name: Restore library
-        run: dotnet restore src/TimeAgo/TimeAgo.csproj
+        run: dotnet restore src/TimeAgochi/TimeAgochi.csproj
 
       - name: Restore sample
-        run: dotnet restore samples/TimeAgo.Sample/TimeAgo.Sample.csproj
+        run: dotnet restore samples/TimeAgochi.Sample/TimeAgochi.Sample.csproj
 
       - name: Build library
-        run: dotnet build src/TimeAgo/TimeAgo.csproj -c Release --no-restore
+        run: dotnet build src/TimeAgochi/TimeAgochi.csproj -c Release --no-restore
 
       - name: Build sample
-        run: dotnet build samples/TimeAgo.Sample/TimeAgo.Sample.csproj -c Release --no-restore
+        run: dotnet build samples/TimeAgochi.Sample/TimeAgochi.Sample.csproj -c Release --no-restore
 
       - name: Pack library
-        run: dotnet pack src/TimeAgo/TimeAgo.csproj -c Release --no-build --output artifacts/packages
+        run: dotnet pack src/TimeAgochi/TimeAgochi.csproj -c Release --no-build --output artifacts/packages
 
       - name: Upload package artifact
         uses: actions/upload-artifact@v4

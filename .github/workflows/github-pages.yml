@@ -32,7 +32,7 @@ jobs:
         uses: actions/configure-pages@v5
 
       - name: Publish sample app
-        run: dotnet publish samples/TimeAgo.Sample/TimeAgo.Sample.csproj -c Release -o artifacts/github-pages
+        run: dotnet publish samples/TimeAgochi.Sample/TimeAgochi.Sample.csproj -c Release -o artifacts/github-pages
 
       - name: Prepare Pages artifact
         shell: bash
