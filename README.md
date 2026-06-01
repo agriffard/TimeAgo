@@ -5,12 +5,6 @@
 
 A self-updating Blazor component that renders human-readable relative time text (for example, "3 minutes ago").
 
-## Automation
-
-- `ci.yml` restores, builds, and packs the library and sample app on pushes to `main`, pull requests, and manual runs.
-- `nuget-package.yml` publishes the `TimeAgochi` package to NuGet on release publication or a manual run. Configure the `NUGET_API_KEY` repository secret before using it.
-- `github-pages.yml` publishes the sample Blazor WebAssembly app to GitHub Pages from `main`. It defaults to `/<repository-name>/` and can be overridden with a `PAGES_BASE_PATH` repository variable.
-
 ## Installation
 
 ```bash
@@ -22,5 +16,5 @@ dotnet add package TimeAgochi
 ```razor
 @using TimeAgochi
 
-<TimeAgochiComponent Date="@DateTime.UtcNow.AddMinutes(-3)" />
+<TimeAgo Date="@DateTime.UtcNow.AddMinutes(-3)" />
 ```
